@@ -5,11 +5,6 @@
 
 int cmpx_cli_parse_opts(int argc, char *argv[], CmpxCliOptions *options)
 {
-  if (argc != 4)
-  {
-    return -1;
-  }
-
   int opt_count = 4;
 
   for (int i = 1; i < argc; i++)
@@ -20,15 +15,15 @@ int cmpx_cli_parse_opts(int argc, char *argv[], CmpxCliOptions *options)
         opt_count--;
     }
 
-    else if (strncmp(argv[i], "--operation=", 7) == 0)
+    else if (strncmp(argv[i], "--operation=", 12) == 0)
     {
-        CmpxOperation *operation;
-        if (cmpx_cli_parse_operation(argv[i] + 7, operation) != 0)
+        CmpxOperation operation;
+        if (cmpx_cli_parse_operation(argv[i] + 12, &operation) != 0)
         {
           return -1;
         }
 
-        options->operation = *operation;
+        options->operation = operation;
         opt_count--;
     }
 
@@ -72,5 +67,5 @@ int cmpx_cli_parse_operation(const char *text, CmpxOperation *operation)
 
 void cmpx_cli_print_usage(void)
 {
-  printf("usage");
+  printf("usage\n");
 }
