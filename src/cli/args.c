@@ -1,9 +1,9 @@
 #include <stdio.h>
 #include <string.h>
 
-#include "libcmpx/cli.h"
+#include "args.h"
 
-int cmpx_cli_parse_opts(int argc, char *argv[], CmpxCliOptions *options)
+int parse_opts(int argc, char *argv[], Options *options)
 {
   int opt_count = 4;
 
@@ -17,8 +17,9 @@ int cmpx_cli_parse_opts(int argc, char *argv[], CmpxCliOptions *options)
 
     else if (strncmp(argv[i], "--operation=", 12) == 0)
     {
-        CmpxOperation operation;
-        if (cmpx_cli_parse_operation(argv[i] + 12, &operation) != 0)
+        Operation operation;
+        
+        if (parse_operation(argv[i] + 12, &operation) != 0)
         {
           return -1;
         }
@@ -48,24 +49,24 @@ int cmpx_cli_parse_opts(int argc, char *argv[], CmpxCliOptions *options)
   return 0;
 }
 
-int cmpx_cli_parse_operation(const char *text, CmpxOperation *operation)
+int parse_operation(const char *text, Operation *operation)
 {
   if (strcmp(text, "encode") == 0)
   {
-    *operation = CMPX_ENCODE;
+    *operation = ENCODE;
     return 0;
   }
 
   if (strcmp(text, "decode") == 0)
   {
-    *operation = CMPX_DECODE;
+    *operation = DECODE;
     return 0;
   }
 
   return -1;
 }
 
-void cmpx_cli_print_usage(void)
+void print_usage(void)
 {
   printf("usage\n");
 }

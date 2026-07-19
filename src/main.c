@@ -1,15 +1,15 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-#include "libcmpx/cli.h"
+#include "cli/args.h"
 
 int main(int argc, char *argv[])
 {
-  CmpxCliOptions options;
+  Options options;
   
-  if (cmpx_cli_parse_opts(argc, argv, &options) != 0)
+  if (parse_opts(argc, argv, &options) != 0)
   {
-    cmpx_cli_print_usage();
+    print_usage();
     return EXIT_FAILURE;
   }
 
