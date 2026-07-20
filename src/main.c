@@ -12,14 +12,14 @@ int main(int argc, char *argv[])
     print_usage();
     return EXIT_FAILURE;
   }
-
+  
   printf(
-      "algorithm: %s\ninput file: %s\noutput file:%s\noperation: %d\n",
-      options.algorithm,
-      options.input,
-      options.output,
-      options.operation
+    "algorithm: %s\ninput file: %s\noutput file:%s\noperation: %d\n",
+    options.algorithm,
+    options.input,
+    options.output,
+    options.operation
   );
-
-  return 0;
+  
+  return run_cmpx(&options);
 }
