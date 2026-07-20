@@ -2,19 +2,14 @@ typedef enum
 {
     ENCODE,
     DECODE
-
 } Operation;
 
 typedef struct
 {
     const char *algorithm;
-
     const char *input;
-
     const char *output;
-
     Operation operation;
-
 } Options;
 
 int parse_opts(
