@@ -2,8 +2,8 @@
 #include <stdbool.h>
 #include <string.h>
 
-#include "rle.h"
-#include "../cli/io.h"
+#include "encode.h"
+#include "../../cli/io.h"
 
 int encode(char *input, char *output, RleStatus *status)
 {
