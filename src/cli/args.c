@@ -61,7 +61,7 @@ int parse_opts(int argc, char *argv[], Options *options)
         {
             return -1;
         }
-        
+
         options->output = argv[i] + 9;
         checks.output = true;
     }
@@ -91,9 +91,4 @@ int parse_operation(const char *text, Operation *operation)
 
   printf("%sFailed to parse operation '%s'. Values are encode or decode\n", ERR_PREFIX, text);
   return -1;
-}
-
-void print_usage(void)
-{
-  printf("usage\n");
 }

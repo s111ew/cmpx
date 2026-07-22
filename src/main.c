@@ -2,6 +2,7 @@
 #include <stdlib.h>
 
 #include "cli/args.h"
+#include "cli/usage.h"
 
 int main(int argc, char *argv[])
 {
