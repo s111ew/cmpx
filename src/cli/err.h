@@ -1,0 +1,1 @@
+const char ERR_PREFIX[] = "cmpx: error: ";

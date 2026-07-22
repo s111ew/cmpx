@@ -2,6 +2,7 @@
 #include <string.h>
 
 #include "args.h"
+#include "err.h"
 
 int parse_opts(int argc, char *argv[], Options *options)
 {
@@ -63,6 +64,7 @@ int parse_operation(const char *text, Operation *operation)
     return 0;
   }
 
+  printf("%sFailed to parse operation '%s'. Values are encode or decode\n", ERR_PREFIX, text);
   return -1;
 }
 

@@ -3,6 +3,7 @@
 #include <sys/stat.h>
 
 #include "io.h"
+#include "err.h"
 
 int file_stats(char *path, FileStats *stats)
 {
@@ -17,6 +18,7 @@ int file_stats(char *path, FileStats *stats)
     struct stat file_info;
     if (stat(abs_path, &file_info) == -1)
     {
+        printf("%sFailed to get file stats for '%s'\n", ERR_PREFIX, abs_path);
         return -1;
     }
 
@@ -29,6 +31,7 @@ int get_abs_path(char *rel_path, char *abs_path)
 {
     if (realpath(rel_path, abs_path) == NULL)
     {
+        printf("%sFailed to get absolute path for '%s'\n", ERR_PREFIX, rel_path);
         return -1;
     }
 
