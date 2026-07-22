@@ -1,3 +1,5 @@
+#include <stdbool.h>
+
 typedef enum
 {
     ENCODE,
@@ -11,6 +13,14 @@ typedef struct
     const char *output;
     Operation operation;
 } Options;
+
+typedef struct
+{
+    bool algorithm;
+    bool input;
+    bool output;
+    bool operation;
+} OptionsCheck;
 
 int parse_opts(
     int argc,

@@ -6,43 +6,68 @@
 
 int parse_opts(int argc, char *argv[], Options *options)
 {
-  int opt_count = 4;
+  if (argc != 5)
+  {
+    return -1;
+  }
+
+  OptionsCheck checks = {false, false, false, false};
 
   for (int i = 1; i < argc; i++)
   {
     if (strncmp(argv[i], "--algorithm=", 12) == 0)
     {
-        options->algorithm = argv[i] + 12;
-        opt_count--;
+      if (checks.algorithm == true)
+      {
+        return -1;
+      }
+      
+      options->algorithm = argv[i] + 12;
+      checks.algorithm = true;
     }
 
     else if (strncmp(argv[i], "--operation=", 12) == 0)
     {
-        Operation operation;
-        
-        if (parse_operation(argv[i] + 12, &operation) != 0)
-        {
-          return -1;
-        }
+      if (checks.operation == true)
+      {
+        return -1;
+      }
+      
+      Operation operation;
+      
+      if (parse_operation(argv[i] + 12, &operation) != 0)
+      {
+        return -1;
+      }
 
         options->operation = operation;
-        opt_count--;
+        checks.operation = true;
     }
 
     else if (strncmp(argv[i], "--input=", 8) == 0)
     {
+        if (checks.input == true)
+        {
+            return -1;
+        }
+
         options->input = argv[i] + 8;
-        opt_count--;
+        checks.input = true;
     }
 
     else if (strncmp(argv[i], "--output=", 9) == 0)
     {
+        if (checks.output == true)
+        {
+            return -1;
+        }
+        
         options->output = argv[i] + 9;
-        opt_count--;
+        checks.output = true;
     }
   }
 
-  if (opt_count != 0)
+  if (checks.algorithm == false || checks.input == false || checks.output == false || checks.operation == false)
   {
     return -1;
   }
