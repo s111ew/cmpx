@@ -1,4 +1,5 @@
 #include <stdbool.h>
+#include <stddef.h>
 #include <stdio.h>
 #include <string.h>
 
@@ -13,7 +14,7 @@ void append_run(int count, char curr, char *output, size_t *output_pos) {
 int encode(char *input, char *output, RleStatus *status) {
   size_t output_pos = 0;
 
-  for (int i = 0; i < strlen(input); i++) {
+  for (size_t i = 0; i < strlen(input); i++) {
     if (status->first_char) {
       status->first_char = false;
       status->count = 1;
