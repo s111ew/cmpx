@@ -1,10 +1,9 @@
-typedef struct
-{
-    const char *path;
-    long long size;
-} FileStats;
+typedef struct {
+  const char *path;
+  long long size;
+} filestats_t;
 
-int file_stats(char *path, FileStats *stats);
+int file_stats(char *path, filestats_t *stats);
 
 int get_abs_path(char *rel_path, char *abs_path);
 

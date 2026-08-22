@@ -6,7 +6,7 @@
 #include "err.h"
 #include "io.h"
 
-int file_stats(char *path, FileStats *stats) {
+int file_stats(char *path, filestats_t *stats) {
   char abs_path[PATH_MAX];
   if (get_abs_path(path, abs_path) != 0) {
     return -1;
