@@ -4,23 +4,17 @@
 #include "cli/args.h"
 #include "cli/usage.h"
 
-int main(int argc, char *argv[])
-{
+int main(int argc, char *argv[]) {
   Options options;
-  
-  if (parse_opts(argc, argv, &options) != 0)
-  {
+
+  if (parse_opts(argc, argv, &options) != 0) {
     print_usage();
     return EXIT_FAILURE;
   }
-  
-  printf(
-    "algorithm: %s\ninput file: %s\noutput file:%s\noperation: %d\n",
-    options.algorithm,
-    options.input,
-    options.output,
-    options.operation
-  );
-  
+
+  printf("algorithm: %s\ninput file: %s\noutput file:%s\noperation: %d\n",
+         options.algorithm, options.input, options.output, options.operation);
+
+  // dummy method for now
   return run_cmpx(&options);
 }
