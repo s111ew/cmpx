@@ -16,5 +16,5 @@ int main(int argc, char *argv[]) {
          options.algorithm, options.input, options.output, options.operation);
 
   // dummy method for now
-  return run_cmpx(&options);
+  return 0;
 }
