@@ -12,3 +12,8 @@ const char *ERR_ARG_COUNT = "Expected 4 args, got %d.\n";
 const char *ERR_ARG_DUPLICATE = "Duplicate %s argument.\n";
 const char *ERR_ARG_VALUE = "No %s '%s' found.\n";
 const char *ERR_ARG_NOT_FOUND = "Unrecognised argument(s).\n";
+
+const char *ERR_INPUT_PATH = "Could not resolve input file path.\n";
+const char *ERR_INPUT_FILE = "Could not open input file.\n";
+const char *ERR_INPUT_FILE_CLOSE = "Could not close input file.\n";
+const char *ERR_INPUT_METADATA = "Could not resolve metadata of input file.\n";
