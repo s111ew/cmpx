@@ -5,7 +5,7 @@
 #include "args.h"
 #include "err.h"
 
-int parse_options(int argc, char *argv[], options_t *options) {
+int parse_options(int argc, char *argv[], options_t *opts) {
   if (argc != 5) {
     return -1;
   }
@@ -26,7 +26,7 @@ int parse_options(int argc, char *argv[], options_t *options) {
         return -1;
       }
 
-      options->algorithm = algorithm;
+      opts->algorithm = algorithm;
       checks.algorithm = true;
     }
 
@@ -41,7 +41,7 @@ int parse_options(int argc, char *argv[], options_t *options) {
         return -1;
       }
 
-      options->operation = operation;
+      opts->operation = operation;
       checks.operation = true;
     }
 
@@ -50,7 +50,7 @@ int parse_options(int argc, char *argv[], options_t *options) {
         return -1;
       }
 
-      options->input = argv[i] + 8;
+      opts->input = argv[i] + 8;
       checks.input = true;
     }
 
@@ -59,7 +59,7 @@ int parse_options(int argc, char *argv[], options_t *options) {
         return -1;
       }
 
-      options->output = argv[i] + 9;
+      opts->output = argv[i] + 9;
       checks.output = true;
     }
   }
@@ -81,6 +81,7 @@ int parse_algorithm(const char *text, algorithm_t *algorithm) {
       return 0;
     }
   }
+  printf("%sFailed to parse algorithm '%s'.\n", ERR_PREFIX, text);
   return -1;
 }
 

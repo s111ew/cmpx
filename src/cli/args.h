@@ -30,5 +30,3 @@ int parse_options(int argc, char *argv[], options_t *options);
 int parse_algorithm(const char *text, algorithm_t *algorithm);
 
 int parse_operation(const char *text, operation_t *operation);
-
-void print_usage(void);
