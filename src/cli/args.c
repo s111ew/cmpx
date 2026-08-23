@@ -1,4 +1,4 @@
-#include <stddef.h>
+#include <stdbool.h>
 #include <stdio.h>
 #include <string.h>
 
@@ -7,16 +7,18 @@
 
 int parse_options(int argc, char *argv[], options_t *opts) {
   if (argc != 5) {
+    printf(ERR_ARG_NUM, argc - 1);
     return -1;
   }
 
-  const char *arg_list[] = {"--algorithm", "--operation", "--input",
-                            "--output"};
+  const char *arg_list[] = {
+      "--algorithm=", "--operation=", "--input=", "--output="};
   options_check_t checks = {false, false, false, false};
 
   for (int i = 1; i < argc; i++) {
-    if (strcmp(argv[i], arg_list[0]) == 0) {
+    if (strncmp(argv[i], arg_list[0], strlen(arg_list[0])) == 0) {
       if (checks.algorithm == true) {
+        printf("%s", ERR_ARG_ALG_DUP);
         return -1;
       }
 
@@ -30,14 +32,15 @@ int parse_options(int argc, char *argv[], options_t *opts) {
       checks.algorithm = true;
     }
 
-    else if (strcmp(argv[i], arg_list[1]) == 0) {
+    else if (strncmp(argv[i], arg_list[1], strlen(arg_list[1])) == 0) {
       if (checks.operation == true) {
+        printf("%s", ERR_ARG_OPE_DUP);
         return -1;
       }
 
       operation_t operation;
 
-      if (parse_operation(argv[i] + 12, &operation) != 0) {
+      if (parse_operation(argv[i] + strlen(arg_list[1]), &operation) != 0) {
         return -1;
       }
 
@@ -45,27 +48,30 @@ int parse_options(int argc, char *argv[], options_t *opts) {
       checks.operation = true;
     }
 
-    else if (strcmp(argv[i], arg_list[2]) == 0) {
+    else if (strncmp(argv[i], arg_list[2], strlen(arg_list[2])) == 0) {
       if (checks.input == true) {
+        printf("%s", ERR_ARG_INP_DUP);
         return -1;
       }
 
-      opts->input = argv[i] + 8;
+      opts->input = argv[i] + strlen(arg_list[2]);
       checks.input = true;
     }
 
-    else if (strcmp(argv[i], arg_list[3]) == 0) {
+    else if (strncmp(argv[i], arg_list[3], strlen(arg_list[3])) == 0) {
       if (checks.output == true) {
+        printf("%s", ERR_ARG_OUT_DUP);
         return -1;
       }
 
-      opts->output = argv[i] + 9;
+      opts->output = argv[i] + strlen(arg_list[3]);
       checks.output = true;
     }
   }
 
   if (checks.algorithm == false || checks.input == false ||
       checks.output == false || checks.operation == false) {
+    printf("%s", ERR_ARG_NOT_FOUND);
     return -1;
   }
 
@@ -81,7 +87,7 @@ int parse_algorithm(const char *text, algorithm_t *algorithm) {
       return 0;
     }
   }
-  printf("%sFailed to parse algorithm '%s'.\n", ERR_PREFIX, text);
+  printf(ERR_ARG_ALG, text);
   return -1;
 }
 
@@ -96,7 +102,6 @@ int parse_operation(const char *text, operation_t *operation) {
     return 0;
   }
 
-  printf("%sFailed to parse operation '%s'. Values are encode or decode\n",
-         ERR_PREFIX, text);
+  printf(ERR_ARG_OPE, text);
   return -1;
 }

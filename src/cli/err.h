@@ -1,9 +1,12 @@
-const char ERR_PREFIX[] = "cmpx: error: ";
+extern const char *ERR_PREFIX;
 
-const char ERR_USAGE[] =
-    "Usage: cmpx --algorithm=<algorithm> --input=<input file> --output=<output "
-    "file> --operation=<operation>\n"
-    "  <algorithm> is the compression algorithm to use\n"
-    "  <input file> is the path to the input file\n"
-    "  <output file> is the path to the output file\n"
-    "  <operation> is the operation to perform (encode or decode)\n";
+extern const char *ERR_USAGE;
+
+extern const char *ERR_ARG_NUM;
+extern const char *ERR_ARG_ALG_DUP;
+extern const char *ERR_ARG_OPE_DUP;
+extern const char *ERR_ARG_INP_DUP;
+extern const char *ERR_ARG_OUT_DUP;
+extern const char *ERR_ARG_ALG;
+extern const char *ERR_ARG_OPE;
+extern const char *ERR_ARG_NOT_FOUND;
