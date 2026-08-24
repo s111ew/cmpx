@@ -5,7 +5,6 @@
 
 int main(int argc, char *argv[]) {
   options_t opts;
-
   if (options_parse(argc, argv, &opts) != 0) {
     return EXIT_FAILURE;
   }
