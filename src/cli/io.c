@@ -8,9 +8,9 @@
 #include "err.h"
 #include "io.h"
 
-int read_to_buffer(options_t *opts, buffer_t *buf) {
+int read_to_buffer(char *rel_path, buffer_t *buf) {
   char path[PATH_MAX];
-  if (realpath(opts->input, path) == NULL) {
+  if (realpath(rel_path, path) == NULL) {
     printf("%s", ERR_INPUT_PATH);
     return -1;
   }

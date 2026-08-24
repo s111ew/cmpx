@@ -9,4 +9,4 @@ typedef struct {
 
 // Reads the contents of the input file into a buffer on the HEAP. Caller is
 // responsible for freeing the buffer data.
-int read_to_buffer(options_t *opts, buffer_t *buf);
+int read_to_buffer(char *rel_path, buffer_t *buf);
