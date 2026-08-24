@@ -1,19 +1,40 @@
-#include <stdio.h>
 #include <stdlib.h>
 
-#include "cli/args.h"
 #include "cli/err.h"
+#include "cli/options.h"
 
 int main(int argc, char *argv[]) {
   options_t opts;
 
-  if (parse_options(argc, argv, &opts) != 0) {
-    printf("%s", ERR_USAGE);
+  if (options_parse(argc, argv, &opts) != 0) {
     return EXIT_FAILURE;
   }
 
-  printf("algorithm: %d, operation: %d, input: %s, output: %s\n",
-         opts.algorithm, opts.operation, opts.input, opts.output);
+  codec_t codec;
+  if (codec_get(opts.codec, &codec) != 0) {
+    return EXIT_FAILURE;
+  }
 
-  return 0;
+  buffer_t input;
+  if (file_read(opts.input_file_path, &input) != 0) {
+    return EXIT_FAILURE;
+  }
+
+  buffer_t output;
+  if (opts.operation == ENCODE) {
+    output = codec->encode(&input);
+  } else {
+    output = codec->decode(&input);
+  }
+
+  if (file_write(opts.output_file_path, &output) != 0) {
+    buffer_free(&input);
+    buffer_free(&output);
+    return EXIT_FAILURE;
+  }
+
+  buffer_free(&input);
+  buffer_free(&output);
+
+  return EXIT_SUCCESS;
 }
