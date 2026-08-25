@@ -9,4 +9,4 @@ typedef struct {
   fn_decode decode;
 } codec_t;
 
-int codec_get(const char *name, codec_t *codec);
+codec_t *codec_get(const char *name);

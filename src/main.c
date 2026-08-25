@@ -12,8 +12,8 @@ int main(int argc, char *argv[]) {
     return EXIT_FAILURE;
   }
 
-  codec_t codec;
-  if (codec_get(opts.codec, &codec) != 0) {
+  codec_t *codec = codec_get(opts.codec);
+  if (codec == NULL) {
     return EXIT_FAILURE;
   }
 
@@ -24,11 +24,11 @@ int main(int argc, char *argv[]) {
 
   buffer_t output;
   if (opts.operation == OP_ENCODE) {
-    if (codec.encode(&input, &output) != 0) {
+    if (codec->encode(&input, &output) != 0) {
       return EXIT_FAILURE;
     }
   } else {
-    if (codec.decode(&input, &output) != 0) {
+    if (codec->decode(&input, &output) != 0) {
       return EXIT_FAILURE;
     }
   }
