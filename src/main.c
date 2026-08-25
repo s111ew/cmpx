@@ -1,6 +1,9 @@
 #include <stdlib.h>
 
+#include "cli/buffer.h"
+#include "cli/codec.h"
 #include "cli/err.h"
+#include "cli/io.h"
 #include "cli/options.h"
 
 int main(int argc, char *argv[]) {
@@ -20,10 +23,14 @@ int main(int argc, char *argv[]) {
   }
 
   buffer_t output;
-  if (opts.operation == ENCODE) {
-    output = codec->encode(&input);
+  if (opts.operation == OP_ENCODE) {
+    if (codec.encode(&input, &output) != 0) {
+      return EXIT_FAILURE;
+    }
   } else {
-    output = codec->decode(&input);
+    if (codec.decode(&input, &output) != 0) {
+      return EXIT_FAILURE;
+    }
   }
 
   if (file_write(opts.output_file_path, &output) != 0) {

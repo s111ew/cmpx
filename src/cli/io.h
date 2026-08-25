@@ -1,12 +1,11 @@
 #include <stdio.h>
 
-#include "args.h"
-
-typedef struct {
-  char *data;
-  size_t len;
-} buffer_t;
+#include "buffer.h"
 
 // Reads the contents of the input file into a buffer on the HEAP. Caller is
 // responsible for freeing the buffer data.
-int read_to_buffer(char *rel_path, buffer_t *buf);
+int file_read(const char *rel_path, buffer_t *buf);
+
+// Writes the contents of a buffer to the file specified by the output file
+// path.
+int file_write(const char *rel_path, buffer_t *buf);

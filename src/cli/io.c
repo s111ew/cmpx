@@ -4,11 +4,10 @@
 #include <stdlib.h>
 #include <sys/stat.h>
 
-#include "args.h"
 #include "err.h"
 #include "io.h"
 
-int read_to_buffer(char *rel_path, buffer_t *buf) {
+int file_read(const char *rel_path, buffer_t *buf) {
   char path[PATH_MAX];
   if (realpath(rel_path, path) == NULL) {
     printf("%s", ERR_INPUT_PATH);

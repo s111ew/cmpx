@@ -69,7 +69,7 @@ int parse_options(int argc, char *argv[], options_t *opts) {
     }
 
     else {
-      // Create Error macro
+      // TODO: Create Error macro
       printf("arg %s not recognised", argv[i]);
       return -1;
     }
@@ -88,7 +88,7 @@ int prefix_match(const char *arg, const char *prefix) {
   return strncmp(arg, prefix, strlen(prefix));
 }
 
-int parse_operation(const char *text, operation_t *operation) {
+int operation_parse(const char *text, operation_t *operation) {
   if (strcmp(text, "encode") == 0) {
     *operation = OP_ENCODE;
     return 0;

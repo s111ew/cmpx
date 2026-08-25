@@ -20,4 +20,4 @@ int prefix_match(const char *arg, const char *prefix);
 
 int options_parse(int argc, char **argv, options_t *opts);
 
-int parse_operation(const char *text, operation_t *operation);
+int operation_parse(const char *text, operation_t *operation);
