@@ -64,4 +64,31 @@ int file_read(const char *rel_path, buffer_t *buf) {
   return 0;
 };
 
-int file_write(const char *rel_path, buffer_t *buf) { return 0; };
+int file_write(const char *rel_path, buffer_t *buf) {
+  char path[PATH_MAX];
+  if (realpath(rel_path, path) == NULL) {
+    printf("%s", ERR_INPUT_PATH);
+    return -1;
+  }
+
+  FILE *file = fopen(path, "wb");
+  if (file == NULL) {
+    printf("%s", ERR_INPUT_FILE);
+    return -1;
+  }
+
+  // TODO: check behaviour of switching the two size params
+  // TODO: check return value of fwrite()
+  if (fwrite(buf->data, 1, buf->size, file) != 0) {
+    printf("%s", ERR_INPUT_FILE);
+    return -1;
+  }
+
+  if (fclose(file) == EOF) {
+    printf("%s", ERR_INPUT_FILE_CLOSE);
+    buffer_free(buf);
+    return -1;
+  }
+
+  return 0;
+};
