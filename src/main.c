@@ -12,7 +12,7 @@ int main(int argc, char *argv[]) {
     return EXIT_FAILURE;
   }
 
-  codec_t *codec = codec_get(opts.codec);
+  const codec_t *codec = codec_get(opts.codec);
   if (codec == NULL) {
     return EXIT_FAILURE;
   }
