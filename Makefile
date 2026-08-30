@@ -1,5 +1,6 @@
 CC      = clang
-CFLAGS  = -Wall -Wextra -g -Isrc
+CFLAGS  = -Wall -Wextra -g -Isrc -fsanitize=address -fno-omit-frame-pointer
+LDFLAGS = -fsanitize=address
 TARGET  = cmpx
 
 SRCS := $(shell find src -name '*.c')
@@ -10,7 +11,7 @@ OBJS := $(SRCS:.c=.o)
 all: $(TARGET)
 
 $(TARGET): $(OBJS)
-	$(CC) $(OBJS) -o $(TARGET)
+	$(CC) $(OBJS) $(LDFLAGS) -o $(TARGET)
 
 %.o: %.c
 	$(CC) $(CFLAGS) -c $< -o $@

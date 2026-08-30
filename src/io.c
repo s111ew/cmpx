@@ -9,7 +9,13 @@
 #include "io.h"
 
 int file_read(const char *rel_path, buffer_t *buf) {
-  FILE *file = open_file(rel_path, "rb");
+  char path[PATH_MAX];
+  if (realpath(rel_path, path) == NULL) {
+    printf("%s %s %s\n", ERR_PREFIX, ERR_IO_PATH, rel_path);
+    return -1;
+  }
+
+  FILE *file = fopen(path, "rb");
   if (file == NULL) {
     printf("%s %s %s\n", ERR_PREFIX, ERR_IO_OPEN, rel_path);
     return -1;
@@ -52,9 +58,9 @@ int file_read(const char *rel_path, buffer_t *buf) {
 };
 
 int file_write(const char *rel_path, buffer_t *buf) {
-  FILE *file = open_file(rel_path, "wb");
+  FILE *file = fopen(rel_path, "ab");
   if (file == NULL) {
-    printf("%s %s %s\n", ERR_PREFIX, ERR_IO_OPEN, rel_path);
+    printf("%s %s %s\n", ERR_PREFIX, ERR_IO_OPEN_OR_CREATE, rel_path);
     return -1;
   }
 
@@ -74,14 +80,3 @@ int file_write(const char *rel_path, buffer_t *buf) {
 
   return 0;
 };
-
-FILE *open_file(const char *rel_path, const char *modes) {
-  char path[PATH_MAX];
-  if (realpath(rel_path, path) == NULL) {
-    printf("%s %s %s\n", ERR_PREFIX, ERR_IO_PATH, rel_path);
-    return NULL;
-  }
-
-  FILE *file = fopen(path, modes);
-  return file;
-}

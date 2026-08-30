@@ -1,9 +1,10 @@
 #pragma once
 
+#include <stdint.h>
 #include <stdio.h>
 
 typedef struct {
-  char *data;
+  uint8_t *data;
   size_t size;
   size_t capacity;
 } buffer_t;

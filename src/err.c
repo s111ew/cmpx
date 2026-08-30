@@ -14,6 +14,7 @@ const char *ERR_ARG_VALUE = "Unrecognised value:";
 const char *ERR_ARG_NOT_FOUND = "Unrecognised argument:";
 
 const char *ERR_IO_OPEN = "Failed to open file:";
+const char *ERR_IO_OPEN_OR_CREATE = "Failed to open or create file:";
 const char *ERR_IO_METADATA = "Failed to fetch metadata for file:";
 const char *ERR_IO_ALLOC = "Failed to allocate memory file of size:";
 const char *ERR_IO_READ = "Failed to read file (bytes read):";
