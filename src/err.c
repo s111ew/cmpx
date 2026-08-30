@@ -1,4 +1,4 @@
-const char *ERR_PREFIX = "cmpx: error: ";
+const char *ERR_PREFIX = "cmpx: error:";
 
 const char *ERR_USAGE =
     "Usage: cmpx --algorithm=<algorithm> --input=<input file> --output=<output "

@@ -4,14 +4,14 @@
 #include "err.h"
 #include "options.h"
 
-int parse_options(int argc, char *argv[], options_t *opts) {
+int options_parse(int argc, char *argv[], options_t *opts) {
   const char *expected_args[] = {
       "--codec=", "--operation=", "--input=", "--output="};
 
   int expected_count = sizeof expected_args / sizeof expected_args[0];
   int provided_count = argc - 1;
   if (provided_count != expected_count) {
-    printf("%s %d", ERR_ARG_COUNT, provided_count);
+    printf("%s %s %d\n", ERR_PREFIX, ERR_ARG_COUNT, provided_count);
     return -1;
   }
 
@@ -23,7 +23,7 @@ int parse_options(int argc, char *argv[], options_t *opts) {
   for (int i = 1; i < argc; i++) {
     if (prefix_match(argv[i], expected_args[0]) == 0) {
       if (checks.codec) {
-        printf("%s codec\n", ERR_ARG_DUPLICATE);
+        printf("%s %s codec\n", ERR_PREFIX, ERR_ARG_DUPLICATE);
         return -1;
       }
 
@@ -33,7 +33,7 @@ int parse_options(int argc, char *argv[], options_t *opts) {
 
     else if (prefix_match(argv[i], expected_args[1]) == 0) {
       if (checks.operation) {
-        printf("%s operation\n", ERR_ARG_DUPLICATE);
+        printf("%s %s operation\n", ERR_PREFIX, ERR_ARG_DUPLICATE);
         return -1;
       }
 
@@ -50,7 +50,7 @@ int parse_options(int argc, char *argv[], options_t *opts) {
 
     else if (prefix_match(argv[i], expected_args[2]) == 0) {
       if (checks.input_file_path) {
-        printf("%s input\n", ERR_ARG_DUPLICATE);
+        printf("%s %s input\n", ERR_PREFIX, ERR_ARG_DUPLICATE);
         return -1;
       }
 
@@ -60,7 +60,7 @@ int parse_options(int argc, char *argv[], options_t *opts) {
 
     else if (prefix_match(argv[i], expected_args[3]) == 0) {
       if (checks.output_file_path) {
-        printf("%s output\n", ERR_ARG_DUPLICATE);
+        printf("%s %s output\n", ERR_PREFIX, ERR_ARG_DUPLICATE);
         return -1;
       }
 
@@ -69,7 +69,7 @@ int parse_options(int argc, char *argv[], options_t *opts) {
     }
 
     else {
-      printf("%s %s\n", ERR_ARG_NOT_FOUND, argv[i]);
+      printf("%s %s %s\n", ERR_PREFIX, ERR_ARG_NOT_FOUND, argv[i]);
       return -1;
     }
   }
@@ -92,6 +92,6 @@ int operation_parse(const char *text, operation_t *operation) {
     return 0;
   }
 
-  printf(ERR_ARG_VALUE, "operation", text);
+  printf("%s %s %s: %s", ERR_PREFIX, ERR_ARG_VALUE, "operation", text);
   return -1;
 }

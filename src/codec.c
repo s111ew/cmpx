@@ -15,6 +15,6 @@ const codec_t *codec_get(const char *name) {
       return codecs[i];
     }
   }
-  printf("%s %s\n", ERR_CODEC_NOT_FOUND, name);
+  printf("%s %s %s\n", ERR_PREFIX, ERR_CODEC_NOT_FOUND, name);
   return NULL;
 };
