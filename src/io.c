@@ -4,7 +4,7 @@
 #include <stdlib.h>
 #include <sys/stat.h>
 
-#include "../buffer/buffer.h"
+#include "buffer.h"
 #include "err.h"
 #include "io.h"
 

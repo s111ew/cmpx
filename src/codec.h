@@ -1,6 +1,6 @@
 #pragma once
 
-#include "../buffer/buffer.h"
+#include "buffer.h"
 
 typedef int (*fn_encode)(const buffer_t *input, buffer_t *output);
 typedef int (*fn_decode)(const buffer_t *input, buffer_t *output);

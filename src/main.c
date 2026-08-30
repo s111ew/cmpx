@@ -1,10 +1,10 @@
 #include <stdlib.h>
 
-#include "cli/buffer.h"
-#include "cli/codec.h"
-#include "cli/err.h"
-#include "cli/io.h"
-#include "cli/options.h"
+#include "buffer.h"
+#include "codec.h"
+#include "err.h"
+#include "io.h"
+#include "options.h"
 
 int main(int argc, char *argv[]) {
   options_t opts;

@@ -1,8 +1,8 @@
 #include <stddef.h>
 #include <string.h>
 
-#include "../codecs/test.h"
 #include "codec.h"
+#include "codecs/test.h"
 #include "err.h"
 
 const codec_t *codecs[] = {&test_codec};

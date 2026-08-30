@@ -1,6 +1,6 @@
 #include <stdio.h>
 
-#include "../buffer/buffer.h"
+#include "buffer.h"
 
 // Reads the contents of the input file into a buffer on the HEAP. Caller is
 // responsible for freeing the buffer data.

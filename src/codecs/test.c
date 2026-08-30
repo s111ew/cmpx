@@ -1,5 +1,5 @@
-#include "../buffer/buffer.h"
-#include "../cli/codec.h"
+#include "../buffer.h"
+#include "../codec.h"
 #include <stdio.h>
 #include <string.h>
 
