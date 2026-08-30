@@ -1,6 +1,8 @@
-#include "codec.h"
 #include <stddef.h>
 #include <string.h>
+
+#include "codec.h"
+#include "err.h"
 
 codec_t *codecs[] = {};
 
@@ -12,5 +14,6 @@ codec_t *codec_get(const char *name) {
       return codecs[i];
     }
   }
+  printf("%s %s\n", ERR_CODEC_NOT_FOUND, name);
   return NULL;
 };

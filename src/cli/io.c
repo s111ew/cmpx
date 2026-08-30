@@ -11,7 +11,7 @@
 int file_read(const char *rel_path, buffer_t *buf) {
   FILE *file = open_file(rel_path, "rb");
   if (file == NULL) {
-    printf("%s", ERR_INPUT_FILE);
+    printf("%s %s\n", ERR_IO_OPEN, rel_path);
     return -1;
   }
 
@@ -19,21 +19,16 @@ int file_read(const char *rel_path, buffer_t *buf) {
   // Using fstat and passing the file num here instead of stat and the path
   // incase of changes to the file in between.
   if (fstat(fileno(file), &file_info) != 0) {
-    printf("%s", ERR_INPUT_METADATA);
-    return -1;
-  }
-
-  if (file_info.st_size < 0) {
-    printf("%s", ERR_INPUT_METADATA);
+    printf("%s %s\n", ERR_IO_METADATA, rel_path);
     return -1;
   }
 
   size_t size = (size_t)file_info.st_size;
 
   // Allocate on the heap instead of the stack incase we get a file with size
-  // larger than 8MB.
+  // too large for the stack.
   if (buffer_init(buf, size) != 0) {
-    printf("%s", ERR_INPUT_METADATA);
+    printf("%s %lu\n", ERR_IO_ALLOC, size);
     fclose(file);
     return -1;
   }
@@ -41,8 +36,7 @@ int file_read(const char *rel_path, buffer_t *buf) {
   size_t read = fread(buf->data, 1, size, file);
 
   if (read != size) {
-    printf("%s", ERR_INPUT_FILE);
-    buffer_free(buf);
+    printf("%s %lu\n", ERR_IO_READ, size);
     fclose(file);
     return -1;
   }
@@ -50,8 +44,7 @@ int file_read(const char *rel_path, buffer_t *buf) {
   buf->size = read;
 
   if (fclose(file) == EOF) {
-    printf("%s", ERR_INPUT_FILE_CLOSE);
-    buffer_free(buf);
+    printf("%s %s\n", ERR_IO_CLOSE, rel_path);
     return -1;
   }
 
@@ -61,20 +54,20 @@ int file_read(const char *rel_path, buffer_t *buf) {
 int file_write(const char *rel_path, buffer_t *buf) {
   FILE *file = open_file(rel_path, "wb");
   if (file == NULL) {
-    printf("%s", ERR_INPUT_FILE);
+    printf("%s %s\n", ERR_IO_OPEN, rel_path);
     return -1;
   }
 
-  // TODO: check behaviour of switching the two size params
-  // TODO: check return value of fwrite()
-  if (fwrite(buf->data, 1, buf->size, file) != 0) {
-    printf("%s", ERR_INPUT_FILE);
+  size_t bytes_written = fwrite(buf->data, 1, buf->size, file);
+
+  if (bytes_written != buf->size) {
+    printf("%s (%lu/%lu)\n", ERR_IO_WRITE, bytes_written, buf->size);
+    fclose(file);
     return -1;
   }
 
   if (fclose(file) == EOF) {
-    printf("%s", ERR_INPUT_FILE_CLOSE);
-    buffer_free(buf);
+    printf("%s %s\n", ERR_IO_CLOSE, rel_path);
     return -1;
   }
 
@@ -84,7 +77,7 @@ int file_write(const char *rel_path, buffer_t *buf) {
 FILE *open_file(const char *rel_path, const char *modes) {
   char path[PATH_MAX];
   if (realpath(rel_path, path) == NULL) {
-    printf("%s", ERR_INPUT_PATH);
+    printf("%s %s\n", ERR_IO_PATH, rel_path);
     return NULL;
   }
 

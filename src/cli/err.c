@@ -8,12 +8,18 @@ const char *ERR_USAGE =
     "  <output file> is the path to the output file\n"
     "  <operation> is the operation to perform (encode or decode)\n";
 
-const char *ERR_ARG_COUNT = "Expected 4 args, got %d.\n";
-const char *ERR_ARG_DUPLICATE = "Duplicate %s argument.\n";
-const char *ERR_ARG_VALUE = "No %s '%s' found.\n";
-const char *ERR_ARG_NOT_FOUND = "Unrecognised argument(s).\n";
+const char *ERR_ARG_COUNT = "Expected 4 args got:";
+const char *ERR_ARG_DUPLICATE = "Duplicate argument:";
+const char *ERR_ARG_VALUE = "Unrecognised value:";
+const char *ERR_ARG_NOT_FOUND = "Unrecognised argument:";
 
-const char *ERR_INPUT_PATH = "Could not resolve input file path.\n";
-const char *ERR_INPUT_FILE = "Could not open input file.\n";
-const char *ERR_INPUT_FILE_CLOSE = "Could not close input file.\n";
-const char *ERR_INPUT_METADATA = "Could not resolve metadata of input file.\n";
+const char *ERR_IO_OPEN = "Failed to open file:";
+const char *ERR_IO_METADATA = "Failed to fetch metadata for file:";
+const char *ERR_IO_ALLOC = "Failed to allocate memory file of size:";
+const char *ERR_IO_READ = "Failed to read file (bytes read):";
+const char *ERR_IO_CLOSE = "Failed to close file:";
+const char *ERR_IO_WRITE =
+    "Failed to write file (bytes written/bytes expected):";
+const char *ERR_IO_PATH = "Failed to resolve file path:";
+
+const char *ERR_CODEC_NOT_FOUND = "Failed to find codec:";
